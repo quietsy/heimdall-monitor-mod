@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -d /config/monitor ]; then
+  git clone https://github.com/quietsy/heimdall-monitor.git /config/monitor
+  ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
+else
+  echo "Monitor already installed, skipping"
+fi
