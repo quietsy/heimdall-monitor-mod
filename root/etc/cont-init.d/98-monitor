@@ -3,8 +3,9 @@
 if [ ! -d /config/monitor ]; then
   git clone https://github.com/quietsy/heimdall-monitor.git /config/monitor
   ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
-  rm -f /etc/php7/php-fpm.d/www.conf
-  mv /config/monitor/www.conf /etc/php7/php-fpm.d/www.conf
+  grep -q '^clear_env' /config/php/www2.conf && sed -i 's/^clear_env.*/clear_env=no/' /config/php/www2.conf || echo 'clear_env=no' >> /config/php/www2.conf
+  /etc/cont-init.d/20-config
+  s6-svc -r /run/s6/services/php-fpm
 else
   echo "Monitor already installed, skipping"
 fi
