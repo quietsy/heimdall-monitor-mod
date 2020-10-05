@@ -1,8 +1,10 @@
 #!/usr/bin/with-contenv bash
 
 if [ ! -d /config/monitor ]; then
+  echo "installing heimdall-monitor"
   git clone https://github.com/quietsy/heimdall-monitor.git /config/monitor
   ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
+  chmod 755 /config/monitor/stats.sh
   cp /config/php/www2.conf /config/php/www2.conf.backup
   grep -q '^clear_env' /config/php/www2.conf && sed -i 's/^clear_env.*/clear_env=no/' /config/php/www2.conf || echo 'clear_env=no' >> /config/php/www2.conf
   mv /config/nginx/site-confs/default /config/nginx/default.backup
@@ -11,5 +13,6 @@ if [ ! -d /config/monitor ]; then
   s6-svc -r /run/s6/services/php-fpm
   s6-svc -r /run/s6/services/nginx
 else
-  echo "Monitor already installed, skipping"
+  echo "heimdall-monitor already installed, getting updates"
+  git -C /config/monitor/ pull origin
 fi
