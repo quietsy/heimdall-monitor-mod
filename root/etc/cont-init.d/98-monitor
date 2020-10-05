@@ -16,4 +16,5 @@ if [ ! -d /config/monitor ]; then
 else
   echo "heimdall-monitor already installed, getting updates"
   git -C /config/monitor/ pull origin
+  docker exec heimdall ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
 fi
