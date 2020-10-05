@@ -15,6 +15,6 @@ if [ ! -d /config/monitor ]; then
   s6-svc -r /run/s6/services/nginx
 else
   echo "heimdall-monitor already installed, getting updates"
-  git -C /config/monitor/ pull origin
-  ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
+  git -C /config/monitor/ pull origin > /dev/null 2>&1
+  ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor > /dev/null 2>&1
 fi
