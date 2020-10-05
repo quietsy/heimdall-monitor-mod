@@ -6,8 +6,8 @@ if [ ! -d /config/monitor ]; then
   ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
   chmod 755 /config/monitor/stats.sh
   mkdir /config/backup
-  cp /config/php /config/backup/
-  cp /config/nginx /config/backup/
+  cp -r /config/php /config/backup/
+  cp -r /config/nginx /config/backup/
   mv -f /config/monitor/www2.conf /config/php/www2.conf
   mv -f /config/monitor/default /config/nginx/site-confs/default
   /etc/cont-init.d/20-config
