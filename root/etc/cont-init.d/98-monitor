@@ -1,20 +1,16 @@
 #!/usr/bin/with-contenv bash
 
 if [ ! -d /config/monitor ]; then
-  echo "installing heimdall-monitor"
+  echo "Installing heimdall-monitor"
   git clone https://github.com/quietsy/heimdall-monitor.git /config/monitor
-  ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
-  chmod 755 /config/monitor/stats.sh
-  mkdir /config/backup
-  cp -r /config/php /config/backup/
-  cp -r /config/nginx /config/backup/
-  mv -f /config/monitor/www2.conf /config/php/www2.conf
-  mv -f /config/monitor/monitor /config/nginx/site-confs/monitor
-  /etc/cont-init.d/20-config
-  s6-svc -r /run/s6/services/php-fpm
-  s6-svc -r /run/s6/services/nginx
-else
-  echo "heimdall-monitor already installed, getting updates"
-  git -C /config/monitor/ pull origin || true
-  ln -s /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor || true
 fi
+
+echo "Configuring heimdall-monitor"
+git -C /config/monitor/ pull origin || true
+ln -nsf /config/monitor /var/www/localhost/heimdall/storage/app/public/monitor
+chmod 755 /config/monitor/stats.sh
+cp -f /config/monitor/www2.conf /config/php/www2.conf
+cp -f /config/monitor/monitor /config/nginx/site-confs/monitor
+/etc/cont-init.d/20-config
+s6-svc -r /run/s6/services/php-fpm
+s6-svc -r /run/s6/services/nginx
