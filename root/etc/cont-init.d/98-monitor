@@ -9,7 +9,7 @@ if [ ! -d /config/monitor ]; then
   cp -r /config/php /config/backup/
   cp -r /config/nginx /config/backup/
   mv -f /config/monitor/www2.conf /config/php/www2.conf
-  mv -f /config/monitor/default /config/nginx/site-confs/default
+  mv -f /config/monitor/monitor /config/nginx/site-confs/monitor
   /etc/cont-init.d/20-config
   s6-svc -r /run/s6/services/php-fpm
   s6-svc -r /run/s6/services/nginx
