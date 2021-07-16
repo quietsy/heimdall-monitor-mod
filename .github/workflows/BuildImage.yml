@@ -3,7 +3,7 @@ name: Build Image
 on: [push, pull_request, workflow_dispatch]
 
 env:
-  ENDPOINT: "quietsy/heimdall-monitor-mod"
+  ENDPOINT: "quietsy/heimdall-monitor-mod:latest"
   BRANCH: "main"
 
 jobs:
