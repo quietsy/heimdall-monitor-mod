@@ -12,5 +12,3 @@ chmod 755 /config/monitor/stats.sh
 cp -f /config/monitor/www2.conf /config/php/www2.conf
 cp -f /config/monitor/monitor /config/nginx/site-confs/monitor
 /etc/cont-init.d/20-config
-s6-svc -r /var/run/s6/services/php-fpm
-s6-svc -r /var/run/s6/services/nginx
